@@ -1,0 +1,4 @@
+(()=>{const c=document.querySelector('.sky');if(!c)return;const x=c.getContext('2d'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;let w,h,d,stars=[];
+const size=()=>{d=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*d;c.height=h*d;x.setTransform(d,0,0,d,0,0);stars=Array.from({length:Math.round(w*h/5200)},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*.9+.2,a:Math.random()*.5+.12,s:Math.random()*.0012+.0004,p:Math.random()*6.3}));};
+const draw=t=>{x.clearRect(0,0,w,h);for(const s of stars){const a=still?s.a:s.a*(.6+.4*Math.sin(t*s.s+s.p));x.globalAlpha=a;x.fillStyle='#f2ede4';x.beginPath();x.arc(s.x,s.y,s.r,0,6.283);x.fill();}if(!still)requestAnimationFrame(draw);};
+size();addEventListener('resize',()=>{size();if(still)draw(0);});requestAnimationFrame(draw);})();
